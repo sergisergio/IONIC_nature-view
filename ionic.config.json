@@ -1,5 +1,6 @@
 {
   "name": "nature-view",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {}
 }

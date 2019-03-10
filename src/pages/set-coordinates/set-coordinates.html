@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons>
+      <button ion-button clear (click)="onCancel()">Annuler</button>
+    </ion-buttons>
+    <ion-title>Ajouter lieu</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <agm-map [latitude]="latitude"
+           [longitude]="longitude"
+           (mapClick)="onMapClicked($event)">
+    <agm-marker *ngIf="marker"
+                [latitude]="marker.latitude"
+                [longitude]="marker.longitude"
+                [markerDraggable]="marker.draggable"></agm-marker>
+  </agm-map>
+</ion-content>
