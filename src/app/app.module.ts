@@ -11,6 +11,7 @@ import {NewViewPage} from "../pages/new-view/new-view";
 import {SetCoordinatesPage} from "../pages/set-coordinates/set-coordinates";
 import {NatureViewService} from "../services/natureView.service";
 import {AgmCoreModule} from "@agm/core";
+import { Geolocation} from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {AgmCoreModule} from "@agm/core";
     StatusBar,
     SplashScreen,
     NatureViewService,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

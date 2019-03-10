@@ -16,4 +16,5 @@
                 [longitude]="marker.longitude"
                 [markerDraggable]="marker.draggable"></agm-marker>
   </agm-map>
+  <button ion-button full [disabled]="!marker" (click)="onSave()">Enregistrer</button>
 </ion-content>
