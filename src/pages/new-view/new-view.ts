@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Modal, ModalController} from "ionic-angular";
+import {Modal, ModalController, NavController, normalizeURL, ToastController} from "ionic-angular";
 import {SetCoordinatesPage} from "../set-coordinates/set-coordinates";
+import {Camera} from "@ionic-native/camera";
+import {NatureView} from "../../models/NatureView.model";
+import {NatureViewService} from "../../services/natureView.service";
 
 @Component({
     selector: 'page-new-view',
@@ -15,7 +18,11 @@ export class NewViewPage implements OnInit {
     imageUrl: string;
 
     constructor(private formBuilder: FormBuilder,
-                private modalCtrl: ModalController) {
+                private modalCtrl: ModalController,
+                private camera: Camera,
+                private toastCtrl: ToastController,
+                private natureViewService: NatureViewService,
+                private navCtrl: NavController) {
     }
 
     ngOnInit() {
@@ -51,5 +58,41 @@ export class NewViewPage implements OnInit {
                 }
             }
         );
+    }
+
+    onTakePhoto() {
+        this.camera.getPicture({
+            destinationType: this.camera.DestinationType.FILE_URI,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE,
+            correctOrientation: true
+        }).then(
+            (data) => {
+                if (data) {
+                    this.imageUrl = normalizeURL(data);
+                }
+            }
+        ).catch(
+            (error) => {
+                this.toastCtrl.create({
+                    message: error.message,
+                    duration: 3000,
+                    position: 'bottom'
+                }).present();
+            }
+        )
+    }
+
+    onSubmitForm() {
+        let newView = new NatureView(
+            this.natureViewForm.get('name').value,
+            new Date(),
+            this.natureViewForm.get('description').value,
+            this.latitude,
+            this.longitude,
+            this.imageUrl
+        );
+        this.natureViewService.addNatureView(newView);
+        this.navCtrl.pop();
     }
 }

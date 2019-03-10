@@ -29,10 +29,18 @@
       <ion-item>
         <p>Latitude : {{ latitude.toFixed(2) }} - Longitude : {{ longitude.toFixed(2) }}</p>
       </ion-item>
+      <ion-item *ngIf="imageUrl">
+        <img [src]="imageUrl" style="max-width: 100%">
+      </ion-item>
     </ion-list>
+    <div text-center>
+      <button ion-button round large icon-only (click)="onTakePhoto()">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </div>
     <button ion-button
             full
             (click)="onSubmitForm()"
-            [disabled]="natureViewForm.invalid">Enregistrer</button>
+            [disabled]="natureViewForm.invalid || !latitude || !imageUrl">Enregistrer</button>
   </form>
 </ion-content>
