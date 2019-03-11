@@ -96,6 +96,84 @@ ionic cordova plugin add cordova-sqlite-storage
 - So, storage data are updated for each new NatureView.  
 - Finally, to fetch correctly storage data, we modify the ngOnInit() method in HomePage.  
 
+***Testing our App***
 
+- ionic serve is not enough to test our app: we need to test it in a device's emulator or a real device.  
 
+**iOS (emulate)**
+
+- we need MacOS and [Xcode](https://developer.apple.com/xcode/) !  
+- Once XCode installed, we need some tools:  
+``` bash
+xcode-select --install
+```    
+- Then, for straight deployment on device without opening Xcode, just do that:  
+``` bash
+npm install -g ios-deploy
+```  
+
+- We need to add some lines in config.xml ( see edit-config).  
+
+- To add iOS platform to our project, execute this:  
+``` bash
+ionic cordova platform add ios
+```  
+- Then we build the app:  
+``` bash
+ionic cordova build ios
+```  
+
+- This build can be opened in XCode: platforms/ios and .xcodeproj.  
+- Create a certificate: XCode menu, settings and accounts, manage certificates button and "+" button.  
+- Once the certification created, we can choose it in Signing part.  
+- To start our app in an emulator, we just choose the device we need, then click Play.  
+- We could also start the app by doing:  
+``` bash
+ionic cordova emulate ios
+```  
+
+**iOS (device)**
+
+- The best way to test the app is testing on a real device. We just need to plug and in the same menu as before, we select our device. The Play button will start our app on our device.  
+- Once the first start done, we can start our app on the device without XCode with:  
+``` bash
+ionic cordova run ios
+```  
+
+- We could also have more or less the same behaviour as "ionic serve" with this command:  
+``` bash
+ionic cordova run ios --livereload
+```  
+
+- The first command allows us to disconnect the device once the app is started.  
+- The second one forces us to let our device plugged.  
+
+See [Last Informations](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html).  
+
+**Android (emulate)**  
+
+- We need JDK ( Java Development Kit) available on [oracle.com](https://www.oracle.com/index.html).  
+- Then, we need [Android Studio](https://developer.android.com/studio/index.html).  
+- Launch Android Studio et in Configure Menu, choose SDK Manager.  
+- In SDK Platforms, install API levels corresponding to android versions needed.  
+- We also need SDK Build-Tools and the Support Repository.  
+- Check the [environment variables](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#setting-environment-variables).  
+- Add Andoid as platform:  
+- We could also have more or less the same behaviour as "ionic serve" with this command:  
+``` bash
+ionic cordova platform add android
+```  
+- Execute the first build:  
+``` bash
+ionic cordova build android
+```  
+  
+- With Android Studio, we can now open the android directory as project (ni platforms directory of our project).  
+- To start an emulator, go to Tools->Android-> AVD Manager.  
+- Create a new device.  
+- Once this device created, we can start the app with Play button.  
+
+**Android (emulate)**    
+
+- Plug the device, activate USB debug and we'll see it in the window by clicking the Play button.  
 
