@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Modal, ModalController, NavController, normalizeURL, ToastController} from "ionic-angular";
-import {SetCoordinatesPage} from "../set-coordinates/set-coordinates";
-import {Camera} from "@ionic-native/camera";
-import {NatureView} from "../../models/NatureView.model";
-import {NatureViewService} from "../../services/natureView.service";
+import { Modal, ModalController, NavController, normalizeURL, ToastController} from "ionic-angular";
+import { SetCoordinatesPage } from "../set-coordinates/set-coordinates";
+import { Camera } from "@ionic-native/camera";
+import { NatureView } from "../../models/NatureView.model";
+import { NatureViewService } from "../../services/natureView.service";
+import { File, Entry } from '@ionic-native/file';
+
+declare var cordova: any;
 
 @Component({
     selector: 'page-new-view',
@@ -22,7 +25,8 @@ export class NewViewPage implements OnInit {
                 private camera: Camera,
                 private toastCtrl: ToastController,
                 private natureViewService: NatureViewService,
-                private navCtrl: NavController) {
+                private navCtrl: NavController,
+                private file: File) {
     }
 
     ngOnInit() {
@@ -69,18 +73,37 @@ export class NewViewPage implements OnInit {
         }).then(
             (data) => {
                 if (data) {
-                    this.imageUrl = normalizeURL(data);
+                    const path = data.replace(/[^\/]*$/, '');
+                    const filename = data.replace(/^.*[\\\/]/, '');
+                    const targetDirectory = cordova.file.dataDirectory;
+                    this.file.moveFile(path, filename, targetDirectory, filename + new Date().getTime())
+                        .then(
+                            (data: Entry) => {
+                                this.imageUrl = normalizeURL(data.nativeURL);
+                                this.camera.cleanup();
+                            }
+                        )
+                        .catch(
+                            (error) => {
+                                 this.toastCtrl.create({
+                                    message: error,
+                                    duration: 3000,
+                                    position: 'bottom'
+                                 }).present();
+                                 this.camera.cleanup();
+                            }
+                        )
                 }
             }
         ).catch(
             (error) => {
                 this.toastCtrl.create({
-                    message: error.message,
+                    message: error,
                     duration: 3000,
                     position: 'bottom'
                 }).present();
             }
-        )
+        );
     }
 
     onSubmitForm() {
