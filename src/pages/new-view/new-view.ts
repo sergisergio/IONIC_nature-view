@@ -64,7 +64,7 @@ export class NewViewPage implements OnInit {
         );
     }
 
-    onTakePhoto() {
+    /*onTakePhoto() {
         this.camera.getPicture({
             destinationType: this.camera.DestinationType.FILE_URI,
             encodingType: this.camera.EncodingType.JPEG,
@@ -104,6 +104,29 @@ export class NewViewPage implements OnInit {
                 }).present();
             }
         );
+    }*/
+
+    onTakePhoto() {
+        this.camera.getPicture({
+          destinationType: this.camera.DestinationType.FILE_URI,
+          encodingType: this.camera.EncodingType.JPEG,
+          mediaType: this.camera.MediaType.PICTURE,
+          correctOrientation: true
+        }).then(
+          (data) => {
+            if (data) {
+              this.imageUrl = normalizeURL(data);
+            }
+          }
+        ).catch(
+          (error) => {
+            this.toastCtrl.create({
+              message: error.message,
+              duration: 3000,
+              position: 'bottom'
+            }).present();
+          }
+        )
     }
 
     onSubmitForm() {
