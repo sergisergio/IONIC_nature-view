@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, NavParams, ToastController,ViewController} from 'ionic-angular';
+import { LoadingController, NavParams, ToastController,ViewController, Platform} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
@@ -20,7 +20,8 @@ export class SetCoordinatesPage implements OnInit {
                 private navParams: NavParams,
                 private geolocation: Geolocation,
                 private loadingCtrl: LoadingController,
-                private toastCtrl: ToastController) {}
+                private toastCtrl: ToastController,
+                public platform: Platform) {}
 
     ngOnInit() {
         let receivedLatitude = this.navParams.get('latitude');
@@ -37,6 +38,10 @@ export class SetCoordinatesPage implements OnInit {
             this.latitude = 57.28;
             this.longitude = -2.58;
         }
+    }
+
+    ionViewDidLoad() {
+        this.platform.ready().then(() => this.onLocateMe());
     }
 
     onCancel() {
@@ -62,8 +67,8 @@ export class SetCoordinatesPage implements OnInit {
         let loader = this.loadingCtrl.create({
             content: 'Recherche de votre position…'
         });
-        loader.present();
-        this.geolocation.getCurrentPosition().then(
+        //loader.present();
+        this.geolocation.getCurrentPosition({}).then(
             (resp) => {
                 loader.dismiss();
                 this.latitude = resp.coords.latitude;
@@ -78,7 +83,7 @@ export class SetCoordinatesPage implements OnInit {
                 loader.dismiss();
                 this.toastCtrl.create({
                     message: error,
-                    duration: 3000,
+                    duration: 10000,
                     position: 'bottom'
                 }).present();
             }
