@@ -64,7 +64,7 @@ export class NewViewPage implements OnInit {
         );
     }
 
-    /*onTakePhoto() {
+    onTakePhoto() {
         this.camera.getPicture({
             destinationType: this.camera.DestinationType.FILE_URI,
             encodingType: this.camera.EncodingType.JPEG,
@@ -104,9 +104,9 @@ export class NewViewPage implements OnInit {
                 }).present();
             }
         );
-    }*/
+    }
 
-    onTakePhoto() {
+    /*onTakePhoto() {
         this.camera.getPicture({
           destinationType: this.camera.DestinationType.FILE_URI,
           encodingType: this.camera.EncodingType.JPEG,
@@ -127,7 +127,7 @@ export class NewViewPage implements OnInit {
             }).present();
           }
         )
-    }
+    }*/
 
     onSubmitForm() {
         let newView = new NatureView(
