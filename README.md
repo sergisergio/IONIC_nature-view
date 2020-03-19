@@ -2,7 +2,7 @@
 
 See [https://openclassrooms.com/fr/courses/5098931-developpez-une-application-mobile-multiplateforme-avec-ionic-3/5139546-profitez-des-native-features-preparez-lapplication](https://openclassrooms.com/fr/courses/5098931-developpez-une-application-mobile-multiplateforme-avec-ionic-3/5139546-profitez-des-native-features-preparez-lapplication)
 
-![image]()
+![image](https://raw.githubusercontent.com/sergisergio/IONIC_nature-view/master/ionic.png)
 
 - Thanks to Cordova, we can use user's device native features such as camera and geolocation.
 - Ionic Native has more than 130 native plugins (See [https://ionicframework.com/docs/native/](https://ionicframework.com/docs/native/)).

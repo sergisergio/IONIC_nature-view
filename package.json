@@ -15,7 +15,7 @@
     "@agm/core": "^1.0.0-beta.2",
     "@angular/common": "5.0.0",
     "@angular/compiler": "5.0.0",
-    "@angular/compiler-cli": "5.0.0",
+    "@angular/compiler-cli": "^9.0.7",
     "@angular/core": "5.0.0",
     "@angular/forms": "5.0.0",
     "@angular/http": "5.0.0",
